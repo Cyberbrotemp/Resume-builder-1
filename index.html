@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CyberNaveen Resume Builder</title>
   <style>
     :root {
@@ -59,11 +59,12 @@
       color: white;
       margin: 0 10px;
       text-decoration: none;
-      font-size: 1.5rem;
     }
 
-    .socials i {
-      font-size: 2rem;
+    .socials img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
     }
 
     .hidden { display: none; }
@@ -133,20 +134,6 @@
       100% { opacity: 1; }
     }
 
-    .alert-button {
-      display: inline-block;
-      margin-top: 10px;
-      background: var(--primary);
-      color: white;
-      padding: 8px 16px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-
-    .alert-button i {
-      margin-right: 8px;
-    }
-
     .download-options {
       display: none;
       margin-top: 20px;
@@ -166,43 +153,37 @@
 </head>
 <body>
   <div class="landing" id="landing">
-    <img src="https://i.ibb.co/xLgXqQ6/IMG-20231108-190543-177.jpg" alt="Developer Profile" class="profile-image"> <!-- Add your profile image URL here -->
+    <img src="https://i.ibb.co/xLgXqQ6/IMG-20231108-190543-177.jpg" alt="Developer Profile" class="profile-image">
     <h1>CyberNaveen</h1>
     <div class="typing" id="typing"></div>
     <div class="socials">
-        <a href="https://instagram.com/kutty_rolex_naveen" target="_blank">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="Instagram" style="width: 50px; height: 50px;"/>
-        </a>
-        <a href="https://codepen.io/CyberNaveen" target="_blank">
-          <img src="https://webartdevelopers.com/blog/wp-content/uploads/2019/01/Codepen-Logo.gif" alt="CodePen" style="width: 50px; height: 50px;"/>
-        </a>
-        <a href="https://github.com/naveenhacking" target="_blank">
-          <img src="https://cdn.dribbble.com/userupload/2608299/file/original-00f24643a2c18bc04251f7a2019d4743.gif" alt="GitHub" style="width: 50px; height: 50px;"/>
-        </a>
-       
-        </a>
-        <a href="mailto:naveenk6326@gmail.com">
-          <img src="https://emaillabs.io/wp-content/uploads/2023/07/Projekt-bez-nazwy-4.gif" alt="Email" style="width: 50px; height: 50px;"/>
-        </a>
-      </div>
-      
+      <a href="https://instagram.com/kutty_rolex_naveen" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="Instagram"/>
+      </a>
+      <a href="https://codepen.io/CyberNaveen" target="_blank">
+        <img src="https://webartdevelopers.com/blog/wp-content/uploads/2019/01/Codepen-Logo.gif" alt="CodePen"/>
+      </a>
+      <a href="https://github.com/naveenhacking" target="_blank">
+        <img src="https://cdn.dribbble.com/userupload/2608299/file/original-00f24643a2c18bc04251f7a2019d4743.gif" alt="GitHub"/>
+      </a>
+      <a href="mailto:naveenk6326@gmail.com">
+        <img src="https://emaillabs.io/wp-content/uploads/2023/07/Projekt-bez-nazwy-4.gif" alt="Email"/>
+      </a>
+    </div>
+  </div>
+
   <div class="resume-builder hidden" id="builder">
     <h2>Resume Inputs</h2>
     <label>Name:</label>
     <input type="text" id="name" oninput="updatePreview()" placeholder="Your Name" />
-
     <label>Phone:</label>
     <input type="text" id="phone" oninput="updatePreview()" placeholder="Phone" />
-
     <label>Email:</label>
     <input type="email" id="email" oninput="updatePreview()" placeholder="Email" />
-
     <label>GitHub:</label>
     <input type="url" id="github" oninput="updatePreview()" placeholder="GitHub URL" />
-
     <label>Location:</label>
     <input type="text" id="location" oninput="updatePreview()" placeholder="Location" />
-
     <label>Career Objective:</label>
     <textarea id="objective" oninput="updatePreview()" rows="4" placeholder="Write your objective..."></textarea>
 
@@ -220,7 +201,6 @@
       <div id="custom-sections"></div>
     </div>
 
-    <!-- Download Options -->
     <div class="download-options" id="download-options">
       <button onclick="downloadPDF()">Download as PDF</button>
       <button onclick="downloadWord()">Download as Word</button>
@@ -229,10 +209,14 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-  <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Font Awesome for Icons -->
 
   <script>
-    const typingText = ["I'm a python Developer", "Editor", "Frontend Developer", "cybersecurity reasearcher for tools"];
+    const typingText = [
+      "I'm a Python Developer", 
+      "Editor", 
+      "Frontend Developer", 
+      "Cybersecurity researcher for tools"
+    ];
     let index = 0, char = 0;
 
     function typeAnimation() {
@@ -251,18 +235,6 @@
       }
     }
 
-    setTimeout(() => {
-      let password = prompt("Enter Password to Access Resume Builder:");
-      if (password === "cyber") {
-        document.getElementById("landing").classList.add("hidden");
-        document.getElementById("builder").classList.remove("hidden");
-      } else {
-        alert("❌ Incorrect password! Please reload and try again.");
-      }
-    }, 7000);
-
-    typeAnimation();
-
     function updatePreview() {
       document.getElementById('preview-name').textContent = document.getElementById('name').value || 'Your Name';
       document.getElementById('preview-contact').textContent =
@@ -273,7 +245,6 @@
     function addCustomSection() {
       const title = prompt("Enter section title:");
       if (!title) return;
-
       const customDiv = document.createElement('div');
       customDiv.classList.add('section-block');
 
@@ -285,8 +256,8 @@
       editable.classList.add('editable');
       editable.setAttribute('contenteditable', 'true');
       editable.textContent = 'Click to edit content...';
-
       customDiv.appendChild(editable);
+
       document.getElementById('custom-sections').appendChild(customDiv);
     }
 
@@ -296,31 +267,41 @@
 
     async function downloadPDF() {
       const { jsPDF } = window.jspdf;
+      if (!jsPDF) return alert("jsPDF not loaded.");
       const doc = new jsPDF();
       const content = document.getElementById("resumePreview").innerText;
       const lines = doc.splitTextToSize(content, 180);
       doc.text(lines, 10, 10);
       doc.save("CyberNaveen_Resume.pdf");
-
-      const alertBox = document.getElementById("alert");
-      alertBox.innerText = "✅ PDF downloaded successfully!";
-      alertBox.style.display = 'block';
-
-      setTimeout(() => alertBox.style.display = 'none', 3000);
+      showAlert("✅ PDF downloaded successfully!");
     }
 
     function downloadWord() {
       const content = document.getElementById("resumePreview").innerText;
       const blob = new Blob([content], { type: "application/msword" });
       saveAs(blob, "CyberNaveen_Resume.doc");
+      showAlert("✅ Word document downloaded successfully!");
+    }
 
+    function showAlert(message) {
       const alertBox = document.getElementById("alert");
-      alertBox.innerText = "✅ Word document downloaded successfully!";
+      alertBox.innerText = message;
       alertBox.style.display = 'block';
-
       setTimeout(() => alertBox.style.display = 'none', 3000);
     }
+
+    window.onload = function () {
+      typeAnimation();
+      setTimeout(() => {
+        let password = prompt("Enter Password to Access Resume Builder:");
+        if (password === "cyber") {
+          document.getElementById("landing").classList.add("hidden");
+          document.getElementById("builder").classList.remove("hidden");
+        } else {
+          alert("❌ Incorrect password! Please reload and try again.");
+        }
+      }, 3000);
+    };
   </script>
-  
 </body>
 </html>
