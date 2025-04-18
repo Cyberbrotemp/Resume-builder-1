@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CyberNaveen Resume Builder</title>
+  <style>
+    :root {
+      --primary: #2c3e50;
+      --accent: #3498db;
+      --light: #ecf0f1;
+      --dark: #1c1c1c;
+      --success-bg: #d9edf7;
+      --success-text: #31708f;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--light);
+      color: var(--dark);
+    }
+
+    .landing {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: url('https://softwarekeep.com/cdn/shop/articles/animated-gif-wallpaper.webp?v=1719236495') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      flex-direction: column;
+    }
+
+    .landing h1 {
+      font-size: 3rem;
+    }
+
+    .profile-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid white;
+      margin-top: 20px;
+    }
+
+    .typing {
+      font-size: 2rem;
+      margin-top: 10px;
+      height: 40px;
+    }
+
+    .socials {
+      margin-top: 20px;
+    }
+
+    .socials a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+
+    .socials img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    .hidden { display: none; }
+
+    .resume-builder {
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      color: var(--accent);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 5px;
+      margin-top: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    textarea, input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .button {
+      background: var(--accent);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .preview {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .alert {
+      background: var(--success-bg);
+      color: var(--success-text);
+      padding: 10px;
+      border-radius: 4px;
+      margin-top: 10px;
+      display: none;
+      text-align: center;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .editable {
+      border-bottom: 1px dashed #ccc;
+      cursor: text;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    .download-options {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .download-options button {
+      background: var(--accent);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="landing" id="landing">
+    <img src="https://i.ibb.co/xLgXqQ6/IMG-20231108-190543-177.jpg" alt="Developer Profile" class="profile-image">
+    <h1>CyberNaveen</h1>
+    <div class="typing" id="typing"></div>
+    <div class="socials">
+      <a href="https://instagram.com/kutty_rolex_naveen" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg" alt="Instagram"/>
+      </a>
+      <a href="https://codepen.io/CyberNaveen" target="_blank">
+        <img src="https://webartdevelopers.com/blog/wp-content/uploads/2019/01/Codepen-Logo.gif" alt="CodePen"/>
+      </a>
+      <a href="https://github.com/naveenhacking" target="_blank">
+        <img src="https://cdn.dribbble.com/userupload/2608299/file/original-00f24643a2c18bc04251f7a2019d4743.gif" alt="GitHub"/>
+      </a>
+      <a href="mailto:naveenk6326@gmail.com">
+        <img src="https://emaillabs.io/wp-content/uploads/2023/07/Projekt-bez-nazwy-4.gif" alt="Email"/>
+      </a>
+    </div>
+  </div>
+
+  <div class="resume-builder hidden" id="builder">
+    <h2>Resume Inputs</h2>
+    <label>Name:</label>
+    <input type="text" id="name" oninput="updatePreview()" placeholder="Your Name" />
+    <label>Phone:</label>
+    <input type="text" id="phone" oninput="updatePreview()" placeholder="Phone" />
+    <label>Email:</label>
+    <input type="email" id="email" oninput="updatePreview()" placeholder="Email" />
+    <label>GitHub:</label>
+    <input type="url" id="github" oninput="updatePreview()" placeholder="GitHub URL" />
+    <label>Location:</label>
+    <input type="text" id="location" oninput="updatePreview()" placeholder="Location" />
+    <label>Career Objective:</label>
+    <textarea id="objective" oninput="updatePreview()" rows="4" placeholder="Write your objective..."></textarea>
+
+    <button class="button" onclick="addCustomSection()">Add Custom Section</button>
+    <button class="button" onclick="showDownloadOptions()">Download Resume</button>
+
+    <div class="alert" id="alert"></div>
+
+    <h2>Live Resume Preview</h2>
+    <div class="preview" id="resumePreview">
+      <h1 id="preview-name">Your Name</h1>
+      <p id="preview-contact">📞 Phone | 📧 Email | 💻 GitHub | 📍 Location</p>
+      <h2>Career Objective</h2>
+      <p id="preview-objective">Your career objective will show here...</p>
+      <div id="custom-sections"></div>
+    </div>
+
+    <div class="download-options" id="download-options">
+      <button onclick="downloadPDF()">Download as PDF</button>
+      <button onclick="downloadWord()">Download as Word</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+  <script>
+    const typingText = [
+      "I'm a Python Developer", 
+      "Editor", 
+      "Frontend Developer", 
+      "Cybersecurity researcher for tools"
+    ];
+    let index = 0, char = 0;
+
+    function typeAnimation() {
+      const el = document.getElementById("typing");
+      if (char < typingText[index].length) {
+        el.innerHTML += typingText[index].charAt(char);
+        char++;
+        setTimeout(typeAnimation, 100);
+      } else {
+        setTimeout(() => {
+          el.innerHTML = "";
+          char = 0;
+          index = (index + 1) % typingText.length;
+          typeAnimation();
+        }, 1500);
+      }
+    }
+
+    function updatePreview() {
+      document.getElementById('preview-name').textContent = document.getElementById('name').value || 'Your Name';
+      document.getElementById('preview-contact').textContent =
+        `📞 ${document.getElementById('phone').value || 'Phone'} | 📧 ${document.getElementById('email').value || 'Email'} | 💻 ${document.getElementById('github').value || 'GitHub'} | 📍 ${document.getElementById('location').value || 'Location'}`;
+      document.getElementById('preview-objective').textContent = document.getElementById('objective').value || 'Your career objective will show here...';
+    }
+
+    function addCustomSection() {
+      const title = prompt("Enter section title:");
+      if (!title) return;
+      const customDiv = document.createElement('div');
+      customDiv.classList.add('section-block');
+
+      const heading = document.createElement('h2');
+      heading.textContent = title;
+      customDiv.appendChild(heading);
+
+      const editable = document.createElement('p');
+      editable.classList.add('editable');
+      editable.setAttribute('contenteditable', 'true');
+      editable.textContent = 'Click to edit content...';
+      customDiv.appendChild(editable);
+
+      document.getElementById('custom-sections').appendChild(customDiv);
+    }
+
+    function showDownloadOptions() {
+      document.getElementById("download-options").style.display = 'block';
+    }
+
+    async function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      if (!jsPDF) return alert("jsPDF not loaded.");
+      const doc = new jsPDF();
+      const content = document.getElementById("resumePreview").innerText;
+      const lines = doc.splitTextToSize(content, 180);
+      doc.text(lines, 10, 10);
+      doc.save("CyberNaveen_Resume.pdf");
+      showAlert("✅ PDF downloaded successfully!");
+    }
+
+    function downloadWord() {
+      const content = document.getElementById("resumePreview").innerText;
+      const blob = new Blob([content], { type: "application/msword" });
+      saveAs(blob, "CyberNaveen_Resume.doc");
+      showAlert("✅ Word document downloaded successfully!");
+    }
+
+    function showAlert(message) {
+      const alertBox = document.getElementById("alert");
+      alertBox.innerText = message;
+      alertBox.style.display = 'block';
+      setTimeout(() => alertBox.style.display = 'none', 3000);
+    }
+
+    window.onload = function () {
+      typeAnimation();
+      setTimeout(() => {
+        let password = prompt("Enter Password to Access Resume Builder:");
+        if (password === "cyber") {
+          document.getElementById("landing").classList.add("hidden");
+          document.getElementById("builder").classList.remove("hidden");
+        } else {
+          alert("❌ Incorrect password! Please reload and try again.");
+        }
+      }, 3000);
+    };
+  </script>
+</body>
+</html>
